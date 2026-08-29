@@ -1,0 +1,15 @@
+services:
+  mariadb:
+    build:
+      context: ./requirements/mariadb
+      dockerfile: Dockerfile
+    entrypoint: /usr/local/bin/init.sh
+    
+    secrets:
+      - db_root_password
+      - db_password
+secrets:
+  db_root_password:
+    file: ../secrets/db_root_password.txt
+  db_password:
+    file: ../secrets/db_password.txt
