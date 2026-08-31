@@ -9,14 +9,12 @@ SQL_PASS="$(cat /run/secrets/db_password)"
 mkdir -p /run/mysqld
 chown -R mysql:mysql /run/mysqld
 
-if [ ! -d "/var/lib/mysql/mysql" ]; then
-    echo "Initializing MariaDB..."
-    mariadb-install-db \
-        --user=mysql \
-        --datadir=/var/lib/mysql \
-        > /dev/null
+mariadb-install-db \
+    --user=mysql \
+    --datadir=/var/lib/mysql \
+    > /dev/null
 
-    mariadbd --user=mysql --bootstrap <<EOF
+mariadbd --user=mysql --bootstrap <<EOF
 ALTER USER 'root'@'localhost' IDENTIFIED BY '${SQL_ROOT_PASS}';
 CREATE DATABASE IF NOT EXISTS \`${SQL_DATABASE}\`;
 CREATE USER IF NOT EXISTS '${SQL_USER}'@'%' IDENTIFIED BY '${SQL_PASS}';
