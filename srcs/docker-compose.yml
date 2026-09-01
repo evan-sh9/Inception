@@ -1,17 +1,22 @@
 services:
   mariadb:
-    container_name: mariadb
+    container_name: server_mariadb
     build:
       context: ./requirements/mariadb
       dockerfile: Dockerfile
-    image : mariadb
-    restart : always
+    image: mariadb
+    restart: on-failure
     entrypoint: /usr/local/bin/init.sh
-    volume : 
+    volumes: 
       - mariadb_data:/var/lib/mysql
     secrets:
       - db_root_password
       - db_password
+    networks:
+      - inception_network
+    
+
+
 
 volumes:
   mariadb_data:
@@ -19,10 +24,14 @@ volumes:
     driver_opts:
       type: none
       o: bind
-      device: /home/${USER}/data/mariadb
+      device: /home/eprieur/data/mariadb
 
 secrets:
   db_root_password:
     file: ../secrets/db_root_password.txt
   db_password:
     file: ../secrets/db_password.txt
+
+networks:
+  inception_network:
+    driver: bridge

@@ -9,17 +9,20 @@ SQL_PASS="$(cat /run/secrets/db_password)"
 mkdir -p /run/mysqld
 chown -R mysql:mysql /run/mysqld
 
-mariadb-install-db \
-    --user=mysql \
-    --datadir=/var/lib/mysql \
-    > /dev/null
+if [ ! -d "/var/lib/mysql/mysql" ]; then
+    service mysql start;
 
-mariadbd --user=mysql --bootstrap <<EOF
-ALTER USER 'root'@'localhost' IDENTIFIED BY '${SQL_ROOT_PASS}';
-CREATE DATABASE IF NOT EXISTS \`${SQL_DATABASE}\`;
-CREATE USER IF NOT EXISTS '${SQL_USER}'@'%' IDENTIFIED BY '${SQL_PASS}';
-GRANT ALL PRIVILEGES ON \`${SQL_DATABASE}\`.* TO '${SQL_USER}'@'%';
-EOF
+    until mariadb-admin ping --silent &>/dev/null; do
+        sleep 1
+    done
+
+    mysql -u root -e "CREATE DATABASE IF NOT EXISTS \`${SQL_DATABASE}\`;"
+    mysql -u root -e "CREATE USER IF NOT EXISTS '${SQL_USER}'@'%' IDENTIFIED BY '${SQL_PASS}';"
+    mysql -u root -e "GRANT ALL PRIVILEGES ON \`${SQL_DATABASE}\`.* TO '${SQL_USER}'@'%';"
+    mysql -u root -e "ALTER USER 'root'@'localhost' IDENTIFIED BY '${SQL_ROOT_PASS}';"
+    mysql -u root -e "FLUSH PRIVILEGES;"
+
+    mysql-admin -u root -p"${SQL_ROOT_PASS}" shutdown
 fi
 
-exec mariadbd --user=mysql --console
+exec mysqld_safe
