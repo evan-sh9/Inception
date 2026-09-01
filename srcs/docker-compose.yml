@@ -14,9 +14,6 @@ services:
       - db_password
     networks:
       - inception_network
-    
-
-
 
 volumes:
   mariadb_data:
