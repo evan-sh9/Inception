@@ -1,13 +1,26 @@
 services:
   mariadb:
+    container_name: mariadb
     build:
       context: ./requirements/mariadb
       dockerfile: Dockerfile
+    image : mariadb
+    restart : always
     entrypoint: /usr/local/bin/init.sh
-    
+    volume : 
+      - mariadb_data:/var/lib/mysql
     secrets:
       - db_root_password
       - db_password
+
+volumes:
+  mariadb_data:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /home/${USER}/data/mariadb
+
 secrets:
   db_root_password:
     file: ../secrets/db_root_password.txt

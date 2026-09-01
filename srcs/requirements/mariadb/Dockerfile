@@ -1,6 +1,7 @@
 FROM debian:bookworm
 
-RUN apt-get update \
+RUN apt-get update -y \
+    && apt-get update -y \
     && apt-get install -y mariadb-server \
     && rm -rf /var/lib/apt/lists/*
 
