@@ -14,6 +14,21 @@ services:
       - db_password
     networks:
       - inception_network
+  worldpress:
+    container_name: server_worldpress
+    build:
+      context: ./requirements/worldpress
+      dockerfile: Dockerfile
+    image: worldpress
+    restart: on-failure
+    entrypoint: /usr/local/bin/init.sh
+    volumes:
+      - worldpress_data:/var/www/worldpress
+    secrets:
+      - wp_admin_password
+      - wp_password
+    networks:
+      - inception_network
 
 volumes:
   mariadb_data:
@@ -22,13 +37,22 @@ volumes:
       type: none
       o: bind
       device: /home/eprieur/data/mariadb
+  worldpress_data:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /home/eprieur/data/worldpress
 
 secrets:
   db_root_password:
     file: ../secrets/db_root_password.txt
   db_password:
     file: ../secrets/db_password.txt
-
+  wp_admin_password:
+    file: ../secrets/wp_admin_password.txt
+  wp_password:
+    file: ../secrets/wp_password.txt
 networks:
   inception_network:
     driver: bridge
