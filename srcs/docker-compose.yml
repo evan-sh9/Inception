@@ -42,11 +42,11 @@ services:
     entrypoint: /usr/local/bin/init.sh
     ports:
     - "443:443"
-    volume:
+    volumes:
       - wordpress_data:/var/www/wordpress
     depends_on:
       - wordpress
-    networds:
+    networks:
     - inception_network
   
 volumes:
