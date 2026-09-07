@@ -10,7 +10,8 @@ mkdir -p /run/mysqld
 chown -R mysql:mysql /run/mysqld
 
 if [ ! -d "/var/lib/mysql/mysql" ]; then
-    service mysql start;
+    mariadb-install-db --user=mysql --datadir=/var/lib/mysql > /dev/null
+    service mariadb start;
 
     until mariadb-admin ping --silent &>/dev/null; do
         sleep 1
@@ -22,7 +23,8 @@ if [ ! -d "/var/lib/mysql/mysql" ]; then
     mysql -u root -e "ALTER USER 'root'@'localhost' IDENTIFIED BY '${SQL_ROOT_PASS}';"
     mysql -u root -e "FLUSH PRIVILEGES;"
 
-    mysql-admin -u root -p"${SQL_ROOT_PASS}" shutdown
+    mysqladmin -u root -p"${SQL_ROOT_PASS}" shutdown
+    sleep 2
 fi
 
 exec mysqld_safe

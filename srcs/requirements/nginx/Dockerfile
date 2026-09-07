@@ -10,3 +10,5 @@ RUN rm -rf /var/lib/apt/lists/* \
 COPY conf/nginx.conf /etc/nginx/nginx.conf
 COPY tools/init.sh /usr/local/bin/init.sh
 RUN chmod +x /usr/local/bin/init.sh
+
+ENTRYPOINT ["/usr/local/bin/init.sh"]

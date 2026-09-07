@@ -6,7 +6,6 @@ services:
       dockerfile: Dockerfile
     image: mariadb
     restart: on-failure
-    entrypoint: /usr/local/bin/init.sh
     volumes: 
       - mariadb_data:/var/lib/mysql
     secrets:
@@ -22,7 +21,6 @@ services:
       dockerfile: Dockerfile
     image: wordpress
     restart: on-failure
-    entrypoint: /usr/local/bin/init.sh
     volumes:
       - wordpress_data:/var/www/wordpress
     secrets:
@@ -39,7 +37,6 @@ services:
       dockerfile: Dockerfile
     image: nginx
     restart: on-failure
-    entrypoint: /usr/local/bin/init.sh
     ports:
     - "443:443"
     volumes:
