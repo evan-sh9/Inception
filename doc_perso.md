@@ -152,3 +152,13 @@ docker compose up -d
 **-d** : Detaché du terminal
 
 [Doc sécurité docker en lien au mot de passe](https://blog.stephane-robert.info/docs/conteneurs/moteurs-conteneurs/docker/secrets/)
+
+Certificat TLS
+
+C = Country (pays) → FR
+ST = State (région/état) → IDF (Île-de-France)
+L = Locality (ville) → Paris
+O = Organization (organisation) → 42
+OU = Organizational Unit (unité organisationnelle) → 42
+CN = Common Name → le nom de domaine que ce certificat protège, ici login.42.fr
+UID = User ID → login

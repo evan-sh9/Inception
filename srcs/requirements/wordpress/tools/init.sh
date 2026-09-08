@@ -14,7 +14,7 @@ WP_USER="${WP_USER:-idk1}"
 WP_USER_PASS="$(cat /run/secrets/wp_password)"
 WP_USER_EMAIL="${WP_USER_EMAIL:-idk@example.com}"
 
-WP_URL="${DOMAIN_NAME:-localhost}"
+WP_URL="${WEB_DOMAIN:-localhost}"
 WP_TITLE="${WP_TITLE:-Inception}"
 
 WP_PATH="/var/www/wordpress"
@@ -37,4 +37,5 @@ if [ ! -f "${WP_PATH}/wp-config.php" ]; then
         --user_pass="${WP_USER_PASS}" --role=author
     chown -R www-data:www-data "${WP_PATH}"
 fi
+
 exec php-fpm8.2 -F
