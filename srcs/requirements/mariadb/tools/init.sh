@@ -10,7 +10,7 @@ mkdir -p /run/mysqld
 chown -R mysql:mysql /run/mysqld
 
 if [ ! -d "/var/lib/mysql/mysql" ]; then
-    mariadb-install-db --user=mysql --datadir=/var/lib/mysql > /dev/null
+    mariadb-install-db --user=mysql --datadir=/var/lib/mysql --auth-root-authentication-method=normal > /dev/null
     service mariadb start;
 
     until mariadb-admin ping --silent &>/dev/null; do

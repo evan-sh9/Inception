@@ -8,6 +8,7 @@ RUN apt-get update -y \
     php-fpm\
     php-mysql\
     mariadb-client\
+    msmtp-mta\
     && rm -rf /var/lib/apt/lists/*
 
 RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar \
