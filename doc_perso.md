@@ -162,3 +162,5 @@ O = Organization (organisation) → 42
 OU = Organizational Unit (unité organisationnelle) → 42
 CN = Common Name → le nom de domaine que ce certificat protège, ici login.42.fr
 UID = User ID → login
+
+

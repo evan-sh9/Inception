@@ -11,7 +11,8 @@ chown -R mysql:mysql /run/mysqld
 
 if [ ! -d "/var/lib/mysql/mysql" ]; then
     mariadb-install-db --user=mysql --datadir=/var/lib/mysql --auth-root-authentication-method=normal > /dev/null
-    service mariadb start;
+    mysqld_safe --skip-networking &
+    pid="$!"
 
     until mariadb-admin ping --silent &>/dev/null; do
         sleep 1
@@ -20,11 +21,11 @@ if [ ! -d "/var/lib/mysql/mysql" ]; then
     mysql -u root -e "CREATE DATABASE IF NOT EXISTS \`${SQL_DATABASE}\`;"
     mysql -u root -e "CREATE USER IF NOT EXISTS '${SQL_USER}'@'%' IDENTIFIED BY '${SQL_PASS}';"
     mysql -u root -e "GRANT ALL PRIVILEGES ON \`${SQL_DATABASE}\`.* TO '${SQL_USER}'@'%';"
-    mysql -u root -e "ALTER USER 'root'@'localhost' IDENTIFIED BY '${SQL_ROOT_PASS}';"
     mysql -u root -e "FLUSH PRIVILEGES;"
+    mysql -u root -e "ALTER USER 'root'@'localhost' IDENTIFIED BY '${SQL_ROOT_PASS}';"
 
     mysqladmin -u root -p"${SQL_ROOT_PASS}" shutdown
-    sleep 2
+    wait "$pid"
 fi
 
 exec mysqld_safe
