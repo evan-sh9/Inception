@@ -2,7 +2,7 @@
 set -e
 
 SQL_DATABASE="${MYSQL_DATABASE:-wordpress}"
-SQL_USER="${MYSQL_USER:-wp_user}"
+SQL_USER="${SQL_USER:-wp_user}"
 SQL_ROOT_PASS="$(cat /run/secrets/db_root_password)"
 SQL_PASS="$(cat /run/secrets/db_password)"
 
@@ -10,7 +10,7 @@ mkdir -p /run/mysqld
 chown -R mysql:mysql /run/mysqld
 
 if [ ! -d "/var/lib/mysql/mysql" ]; then
-    mariadb-install-db --user=mysql --datadir=/var/lib/mysql --auth-root-authentication-method=normal > /dev/null
+    mariadb-install-db --user=mysql --datadir=/var/lib/mysql > /dev/null
     mysqld_safe --skip-networking &
     pid="$!"
 

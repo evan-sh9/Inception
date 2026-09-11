@@ -2,7 +2,7 @@
 set -e
 
 DB_NAME="${MYSQL_DATABASE:-wordpress}"
-DB_USER="${MYSQL_USER:-wp_user}"
+DB_USER="${SQL_USER:-wp_user}"
 DB_PASS="$(cat /run/secrets/db_password)"
 DB_HOST="mariadb"
 
