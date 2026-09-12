@@ -1,0 +1,15 @@
+services:
+  adminer:
+    container_name: adminer_container
+    env_file: .env
+    build:
+      context: ./requirements/adminer
+      dockerfile: Dockerfile
+    image: adminer
+    restart: on-failure
+    ports:
+      - "8080:8080"
+    depends_on:
+      - mariadb
+    networks:
+      - inception_network
