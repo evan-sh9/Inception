@@ -7,9 +7,20 @@ services:
       dockerfile: Dockerfile
     image: adminer
     restart: on-failure
-    ports:
-      - "8080:8080"
+    # ports:
+    #   - "8080:8080"
     depends_on:
       - mariadb
+    networks:
+      - inception_network
+
+  static_web_site:
+    container_name: static_web_site
+    env_file: .env
+    build:
+      context: ./requirements/nginx/website
+      dockerfile: Dockerfile
+    image: nginx
+    restart: on-failure
     networks:
       - inception_network
