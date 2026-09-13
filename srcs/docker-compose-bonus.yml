@@ -13,11 +13,12 @@ services:
       - inception_network
 
   static_web_site:
-    container_name: static_web_site
+    container_name: static_web_container
     env_file: .env
     build:
       context: ./requirements/nginx/website
       dockerfile: Dockerfile
+    image: nginx-static-site
     restart: on-failure
     networks:
       - inception_network
