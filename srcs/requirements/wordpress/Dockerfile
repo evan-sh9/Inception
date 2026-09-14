@@ -7,6 +7,7 @@ RUN apt-get update -y \
     php\
     php-fpm\
     php-mysql\
+    php-redis\
     mariadb-client\
     msmtp-mta\
     && rm -rf /var/lib/apt/lists/*
@@ -27,5 +28,7 @@ COPY conf/wordpress.conf /etc/php/8.2/fpm/pool.d/www.conf
 COPY tools/init.sh /usr/local/bin/init.sh
 
 RUN chmod +x /usr/local/bin/init.sh
+
+EXPOSE 9000
 
 ENTRYPOINT ["/usr/local/bin/init.sh"]

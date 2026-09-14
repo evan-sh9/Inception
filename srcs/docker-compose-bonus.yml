@@ -22,3 +22,13 @@ services:
     restart: on-failure
     networks:
       - inception_network
+
+  redis:
+    container_name: redis_container
+    build:
+      context: ./requirements/redis
+      dockerfile: Dockerfile
+    image: redis
+    restart: on-failure
+    networks:
+      - inception_network

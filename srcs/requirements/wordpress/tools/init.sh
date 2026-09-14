@@ -26,6 +26,8 @@ do
     sleep 2
 done
 
+REDIS_HOST="${REDIS_HOST:-redis_container}"
+
 if [ ! -f "${WP_PATH}/wp-config.php" ]; then
     wp config create --allow-root --path="${WP_PATH}" --dbname="${DB_NAME}" \
         --dbuser="${DB_USER}" --dbpass="${DB_PASS}" --dbhost="${DB_HOST}:3306"
@@ -35,6 +37,15 @@ if [ ! -f "${WP_PATH}/wp-config.php" ]; then
 
     wp user create --allow-root --path="${WP_PATH}" "${WP_USER}" "${WP_USER_EMAIL}" \
         --user_pass="${WP_USER_PASS}" --role=author
+    chown -R www-data:www-data "${WP_PATH}"
+
+    wp config set WP_REDIS_HOST "${REDIS_HOST}" --allow-root --path="${WP_PATH}"
+    wp config set WP_REDIS_PORT 6379 --raw --allow-root --path="${WP_PATH}"
+    wp config set WP_CACHE true --raw --allow-root --path="${WP_PATH}"
+
+    wp plugin install redis-cache --activate --allow-root --path="${WP_PATH}"
+    wp redis enable --allow-root --path="${WP_PATH}"
+
     chown -R www-data:www-data "${WP_PATH}"
 fi
 
