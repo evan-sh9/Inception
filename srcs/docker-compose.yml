@@ -46,8 +46,44 @@ services:
       - wordpress_data:/var/www/wordpress
     depends_on:
       - wordpress
+      - adminer
+      - static_web_site
     networks:
     - inception_network
+
+  adminer:
+    container_name: adminer_container
+    env_file: .env
+    build:
+      context: ./requirements/adminer
+      dockerfile: Dockerfile
+    image: adminer
+    restart: on-failure
+    depends_on:
+      - mariadb
+    networks:
+      - inception_network
+
+  static_web_site:
+    container_name: static_web_container
+    env_file: .env
+    build:
+      context: ./requirements/nginx/website
+      dockerfile: Dockerfile
+    image: nginx-static-site
+    restart: on-failure
+    networks:
+      - inception_network
+
+  redis:
+    container_name: redis_container
+    build:
+      context: ./requirements/redis
+      dockerfile: Dockerfile
+    image: redis
+    restart: on-failure
+    networks:
+      - inception_network
 
 volumes:
   mariadb_data:
@@ -55,13 +91,13 @@ volumes:
     driver_opts:
       type: none
       o: bind
-      device: /home/eprieur/data/mariadb
+      device: /home/volt/data/mariadb
   wordpress_data:
     driver: local
     driver_opts:
       type: none
       o: bind
-      device: /home/eprieur/data/wordpress
+      device: /home/volt/data/wordpress
 
 secrets:
   db_root_password:

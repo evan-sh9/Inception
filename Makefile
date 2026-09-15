@@ -1,9 +1,8 @@
 NAME = inception
 
 FILE = srcs/docker-compose.yml
-FILE_BONUS = srcs/docker-compose-bonus.yml
-ALL_FILE = -f $(FILE) -f $(FILE_BONUS)
-DATA_PATH = /home/eprieur/data
+ALL_FILE = -f $(FILE)
+DATA_PATH = /home/volt/data
 
 all:
 	@mkdir -p $(DATA_PATH)/mariadb $(DATA_PATH)/wordpress
