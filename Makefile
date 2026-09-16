@@ -5,7 +5,7 @@ ALL_FILE = -f $(FILE)
 DATA_PATH = /home/volt/data
 
 all:
-	@mkdir -p $(DATA_PATH)/mariadb $(DATA_PATH)/wordpress
+	@mkdir -p $(DATA_PATH)/mariadb $(DATA_PATH)/wordpress $(DATA_PATH)/portainer
 	docker compose -f $(FILE) up --build
 
 down:
@@ -15,7 +15,7 @@ stop:
 	docker compose $(ALL_FILE) stop
 
 clean: down
-	@sudo rm -rf $(DATA_PATH)/mariadb/* $(DATA_PATH)/wordpress/* $(DATA_PATH)/nginx/* $(DATA_PATH)/adminer/*
+	@sudo rm -rf $(DATA_PATH)/mariadb/* $(DATA_PATH)/wordpress/* $(DATA_PATH)/portainer/*
 
 bonus:
 	@mkdir -p $(DATA_PATH)/mariadb $(DATA_PATH)/wordpress $(DATA_PATH)/adminer
