@@ -17,7 +17,7 @@ Each service is built using a dedicated `Dockerfile` based on standard Debian , 
 | **FTP Server**      | Provides FTP access to the WordPress volume, so files can be uploaded/downloaded without going through a container shell. |
 | **Adminer**         | A Web-based database administration tool, used to inspect and manage the MariaDB database through a browser. |
 | **Static website**  | A simple additional website, served independently, you can replace this by an another website. |
-| Portainer | A web-based Docker management UI, used to visually monitor and manage the stack's containers, images, volumes, and networks through a browser. |
+| **Portainer** | A web-based Docker management UI, used to visually monitor and manage the stack's containers, images, volumes, and networks through a browser. |
 
 ## Technical Choices & Comparisons
 
