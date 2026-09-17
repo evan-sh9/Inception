@@ -33,7 +33,9 @@ The difference between the two lies mainly in their management, a VM virtualizes
 - **Docker :**
 This is precisely why Docker was created, we create containers that rely directly on our host Linux kernel rather than virtualizing additional kernels, making it significantly faster and much less resource-intensive.
 
-![Docker archi](img/docker_archi.webp)
+<p align="center">
+  <img src="img/docker_archi.webp" alt="Docker Architecture" width="85%">
+</p>
 
 #### Secrets vs Environment Variables
 * **Environment Variables**: Environment variables defined in a `.env` file at the root of the project . It typically contains, The domain name , Database name, user, WordPress username, WordPress site title.
