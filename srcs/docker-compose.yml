@@ -101,6 +101,24 @@ services:
     networks:
       - inception_network
 
+  ftp:
+    container_name: ftp_container
+    env_file: .env
+    build:
+      context: ./requirements/ftp
+      dockerfile: Dockerfile
+    image: ftp
+    restart: on-failure
+    ports:
+      - "21:21"
+      - "42000-42010:42000-42010"
+    volumes :
+      - wordpress_data:/var/www/wordpress
+    secrets:
+      - ftp_password
+    networks:
+      - inception_network
+
 volumes:
   mariadb_data:
     driver: local
@@ -132,6 +150,8 @@ secrets:
     file: ../secrets/wp_password.txt
   pt_password:
     file: ../secrets/pt_password.txt
+  ftp_password:
+    file: ../secrets/ftp_password.txt
 networks:
   inception_network:
     driver: bridge
