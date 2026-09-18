@@ -52,8 +52,10 @@ Create a post :
 
 ```sh
 docker exec -it wordpress_container wp post create --post_title="IDK" --post_status=publish --allow-root --path=/var/www/wordpress
-# you can restart : docker compose stop && docker compose up
-# for try the volume persistence
+```
+Try the volume persistence :
+```
+cd srcs/; docker compose stop && docker compose up
 ```
 
 ## Web Test
@@ -61,14 +63,14 @@ docker exec -it wordpress_container wp post create --post_title="IDK" --post_sta
 The website is working ?
 
 ```sh
-curl -kI https://catfish.42.fr
+curl -kI https://eprieur.42.fr
 ```
 
 Change the website URL :
 
 ```sh
 echo -e '127.0.0.1\tcatfish.42.fr' | sudo tee -a /etc/hosts
-# + change the WEB_DOMAIN in the .env
+# And change the WEB_DOMAIN variable in the .env
 ```
 
 ## Redis

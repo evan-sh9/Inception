@@ -6,7 +6,7 @@ DATA_PATH = /home/volt/data
 
 all:
 	@mkdir -p $(DATA_PATH)/mariadb $(DATA_PATH)/wordpress $(DATA_PATH)/portainer
-	docker compose -f $(FILE) up --build
+	docker compose -f $(FILE) up -d --build
 
 down:
 	docker compose $(ALL_FILE) down
