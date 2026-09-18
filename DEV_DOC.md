@@ -21,7 +21,7 @@ This documentation is intended for **developers**. If you only want to use the r
 ├── Makefile
 ├── srcs/
 │   ├── docker-compose.yml
-│   ├── .env                # example values only, no real passwords
+│   ├── .env                # example values
 │   ├── requirements/
 │   │   ├── nginx/
 │   │   ├── wordpress/
