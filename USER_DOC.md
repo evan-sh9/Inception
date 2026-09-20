@@ -1,3 +1,4 @@
+*This project has been created as part of the 42 curriculum by eprieur.*
 # USER_DOC.md — User Documentation
 
 This document explains,  how to use the **Inception** project: what it does, how to start and stop it, how to access the website and the administration panel.

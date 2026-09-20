@@ -1,3 +1,4 @@
+*This project has been created as part of the 42 curriculum by eprieur.*
 # Developer Documentation
 
 This document explains how a developer can set up, build, launch, and manage the **Inception** project: environment setup, Makefile/Docker Compose usage, container and volume management, and data persistence.
